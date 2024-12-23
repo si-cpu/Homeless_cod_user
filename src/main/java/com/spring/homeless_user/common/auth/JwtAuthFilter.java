@@ -9,6 +9,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -72,12 +76,33 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
 
             log.info("Token validated successfully for email: {}", emailFromToken);
+
+            // 인증 성공 후 인증 정보 설정
+            log.info("Token validated successfully for email: {}", emailFromToken);
+
+// 권한 정보 리스트 생성 (예: ROLE_USER)
+            List<SimpleGrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+
+// 인증 객체 생성
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    emailFromToken, // Principal (사용자 정보)
+                    null, // Credentials (일반적으로 비밀번호는 null)
+                    authorityList // Authorities (권한 리스트)
+            );
+
+// SecurityContext에 인증 정보 설정
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+// 다음 필터 호출
             filterChain.doFilter(request, response);
+
 
         } catch (IllegalArgumentException e) {
             log.error("Invalid token format: {}", e.getMessage());
+            e.printStackTrace();
             sendErrorResponse(response, HttpServletResponse.SC_BAD_REQUEST, "Invalid token format");
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("Unexpected error during token validation: {}", e.getMessage());
             sendErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: " + e.getMessage());
         }

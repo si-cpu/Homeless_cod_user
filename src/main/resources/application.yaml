@@ -22,7 +22,7 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   mail:
     host:
     port:
@@ -61,3 +61,12 @@ instance:
 #      secret-key:
 #    region:
 #      static:
+jwt:
+  exclude-paths:
+    - /user/login
+    - /user/precreate
+    - /user/verify
+  expiration: 3600000
+  secretKey: rI9KLc/nWq+0ehvbQXjST52lIHi+A4PurdKwAe0ZcN+0LE1QBv7p0qhFx8wzt8PaigtMXpJHdIl6p4ILsLDasA==
+  expirationRt: 1209600000
+  secretKeyRt: lGBm6kwqJoKjLioZfyYJ+OTstjyczTbf7tJXar1pQ2PDSeg5LZQ30DXDlLbM7zKiysBfPkdv6KTVOJ+UcL5C6g==

@@ -1,14 +1,10 @@
 package com.spring.homeless_user.user.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.annotation.processing.Generated;
-@Getter
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Friends {
@@ -18,14 +14,13 @@ public class Friends {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user; // User의 id만 저장됨
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "friend_id")
-    private User friend; // 친구 요청을 받은 사용자
+    @JoinColumn(name = "friend_id", nullable = false)
+    private User friend;
 
-    public Friends(String user, String friend) {
-
+    public Friends(User user, User friend) {
     }
 }

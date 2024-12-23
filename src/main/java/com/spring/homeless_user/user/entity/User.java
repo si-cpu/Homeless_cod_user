@@ -6,7 +6,6 @@ import java.util.List;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 @Entity
 @Data
 @Builder
@@ -28,12 +27,9 @@ public class User {
     private LocalDateTime CreateAt;
     private String refreshToken;
 
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Friends> friends = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Servers> serverList = new ArrayList<>();
-
-
 }
