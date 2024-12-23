@@ -75,8 +75,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 return;
             }
 
-            log.info("Token validated successfully for email: {}", emailFromToken);
-
             // 인증 성공 후 인증 정보 설정
             log.info("Token validated successfully for email: {}", emailFromToken);
 

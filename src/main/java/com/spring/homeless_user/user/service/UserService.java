@@ -113,7 +113,10 @@ public class UserService {
         }
     }
 
-    private void sendVerificationEmail(String email, String token) {
+    private CommonResDto sendVerificationEmail(String email) {
+
+        String token = UUID.randomUUID().toString().trim();
+
         // 이메일 제목과 본문 구성
         String subject = "이메일 인증을 해주세요";
 
@@ -134,9 +137,10 @@ public class UserService {
             // 이메일 전송
             mailSender.send(message);
 
+            return new CommonResDto(HttpStatus.OK,"이메일 전송 성공!!!", null);
         } catch (Exception e) {
             // 예외 처리
-            throw new RuntimeException("이메일 발송에 실패했습니다.", e);
+            return new CommonResDto(HttpStatus.INTERNAL_SERVER_ERROR,"이메일 전송 실패",null);
         }
     }
 

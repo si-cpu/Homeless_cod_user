@@ -60,6 +60,15 @@ public class UserController {
 //        return userService.gitLogin(dto);
 //    }
 
+    // 이메일 인증번호 전송
+    @PostMapping("/sendemail")
+    public CommonResDto sendEmail(@RequestBody String  email) {
+
+        return userService.ema
+    }
+
+
+
     // 이메일 중복검사
     @GetMapping("/duplicate/email")
     public CommonResDto duplicateEmail(@RequestParam String email) {
