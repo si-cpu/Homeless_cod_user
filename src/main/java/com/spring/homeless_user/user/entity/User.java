@@ -11,6 +11,12 @@ import java.util.ArrayList;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(
+        indexes = {
+                @Index(name = "idx_email", columnList = "email"),
+                @Index(name = "idx_nickname", columnList = "nickname")
+        }
+)
 public class User {
 
     @Id

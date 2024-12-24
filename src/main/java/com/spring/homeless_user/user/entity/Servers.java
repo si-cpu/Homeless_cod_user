@@ -9,13 +9,20 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(
+        name = "server",
+        indexes = {
+                @Index(name = "idx_serverId", columnList = "serverId"),
+                @Index(name = "idx_userId", columnList = "user_id") // user_id에 대한 인덱스 추가
+        }
+)
 public class Servers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer serverId;
+    private Long serverId;
 
     @Enumerated(EnumType.STRING)
     private AddStatus addStatus;
@@ -24,3 +31,4 @@ public class Servers {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
+

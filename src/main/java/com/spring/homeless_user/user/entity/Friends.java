@@ -7,6 +7,12 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(
+        indexes = {
+                @Index(name = "idx_user", columnList = "userId"),
+                @Index(name = "idx_firend", columnList = "friendId")
+        }
+)
 public class Friends {
 
     @Id
